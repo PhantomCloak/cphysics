@@ -1,6 +1,6 @@
 build:
-	clang++ -std=c++17 ./src/*.cpp -lm -lSDL2 -lSDL2_gfx -g -o 2dphysics;
+	g++ -std=c++17 -Wall ./src/*.cpp -L/opt/homebrew/Cellar/sdl2/2.0.22/lib -L/opt/homebrew/Cellar/sdl2_gfx/1.0.4/lib -lm -lSDL2 -lSDL2_gfx -g -o cphysics;
 run:
-	./2dphysics;
+	./cphysics;
 clean:
-	rm 2dphysics;
+	rm cphysics;
