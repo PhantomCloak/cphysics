@@ -62,7 +62,7 @@ Vector2 Vector2::operator-(const Vector2 &v) const {
 Vector2 Vector2::operator*(const float n) const {
   Vector2 result;
   result.x = x * n;
-  result.x = y * n;
+  result.y = y * n;
   return result;
 }
 
