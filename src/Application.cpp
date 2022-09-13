@@ -1,6 +1,9 @@
 #include "Application.h"
 
-void Application::Setup() { appRunning = Graphics::OpenWindow(); }
+void Application::Setup() {
+  appRunning = Graphics::OpenWindow();
+  world = new World(-9.8);
+}
 
 bool Application::IsRunning() { return appRunning; }
 void Application::Input() {
@@ -9,6 +12,15 @@ void Application::Input() {
     switch (event.type) {
     case SDL_QUIT:
       appRunning = false;
+      break;
+    case SDL_MOUSEBUTTONDOWN:
+      if (event.button.button == SDL_BUTTON_LEFT) {
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+
+        Particle *particle = new Particle(x, y, 1);
+        world->AddParticle(particle);
+      }
       break;
     case SDL_KEYDOWN:
       if (event.key.keysym.sym == SDLK_ESCAPE)
@@ -24,16 +36,23 @@ void Application::Update() {
   if (timeToWait > 0)
     SDL_Delay(timeToWait);
 
-  Graphics::DrawCircle(500, 500, 40, 0, 0xff00ffff);
-  Graphics::DrawCircle(200, 300, 100, 0, 0xff00ffff);
-  Graphics::DrawCircle(1000, 1000, 80, 0, 0xff00ffff);
+  float deltaTime = (SDL_GetTicks() - timePreviousFrame) / 1000.0f;
+  if (deltaTime > 0.016)
+    deltaTime = 0.016;
 
   timePreviousFrame = SDL_GetTicks();
+  world->Update(deltaTime);
 }
 
 void Application::Render() {
+
+  Graphics::ClearScreen(0xffffffff);
+  for (auto particle : world->GetParticles()) {
+    Graphics::DrawFillCircle(particle->position.x, particle->position.y, 20,
+                             0xff000000);
+  }
+
   Graphics::RenderFrame();
-  Graphics::ClearScreen(0xFFFFFFFF);
 }
 
 void Application::Destroy() {}

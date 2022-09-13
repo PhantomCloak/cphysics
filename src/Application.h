@@ -2,22 +2,24 @@
 #define APPLICATION_H
 
 #include "Graphics.h"
+#include "Physics/World.h"
 
 #define MILLISECS_PER_FRAME 16
-class Application
-{
-    private:
-        bool isDebug;
-        bool appRunning;
-    public:
-        Application() = default;
-        ~Application() = default;
+class Application {
+private:
+  bool isDebug;
+  bool appRunning;
+  World *world;
 
-        bool IsRunning();
-        void Setup();
-        void Input();
-        void Update();
-        void Render();
-        void Destroy();
+public:
+  Application() = default;
+  ~Application() = default;
+
+  bool IsRunning();
+  void Setup();
+  void Input();
+  void Update();
+  void Render();
+  void Destroy();
 };
 #endif // !APPLICATION_H
