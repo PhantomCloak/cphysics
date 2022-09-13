@@ -13,6 +13,8 @@ Particle::Particle(float x, float y, float mass) {
     this->invMass = 0;
 }
 
+Particle::~Particle() {}
+
 bool Particle::IsStatic() const {
   const float epsilon = 0.005f;
   return fabs(invMass - 0.0) < epsilon;
@@ -25,7 +27,7 @@ void Particle::Integrate(float dt) {
     return;
 
   // EULER Integration
-  acceleration = forceAccumulator * dt;
+  acceleration = forceAccumulator * invMass;
   velocity += acceleration * dt;
   position += velocity * dt;
 
