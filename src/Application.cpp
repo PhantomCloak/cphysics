@@ -24,12 +24,16 @@ void Application::Update() {
   if (timeToWait > 0)
     SDL_Delay(timeToWait);
 
-  Graphics::DrawCircle(500, 500, 40, 0, 0xffff0000);
+  Graphics::DrawCircle(500, 500, 40, 0, 0xff00ffff);
+  Graphics::DrawCircle(200, 300, 100, 0, 0xff00ffff);
+  Graphics::DrawCircle(1000, 1000, 80, 0, 0xff00ffff);
 
   timePreviousFrame = SDL_GetTicks();
-  Graphics::ClearScreen(0xFFFFFFFF);
 }
 
-void Application::Render() { Graphics::RenderFrame(); }
+void Application::Render() {
+  Graphics::RenderFrame();
+  Graphics::ClearScreen(0xFFFFFFFF);
+}
 
 void Application::Destroy() {}
