@@ -1,6 +1,7 @@
 #include "World.h"
 
 World::World(float g) { gravity = -g; }
+World::~World() {}
 
 void World::AddParticle(Particle *particle) { particles.push_back(particle); }
 
@@ -13,7 +14,7 @@ std::vector<Particle *> &World::GetParticles() { return particles; }
 void World::Update(float dt) {
 
   // Add all forces
-  const Vector2 gravityForce = Vector2(0, gravity);
+  const Vector2 gravityForce = Vector2(0, gravity * SCREEN_FORCE_MULTIPLIER);
 
   for (auto particle : particles) {
     particle->AddForce(gravityForce);

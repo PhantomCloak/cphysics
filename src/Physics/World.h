@@ -1,6 +1,7 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include "Constants.h"
 #include "Particle.h"
 #include "Vector2.h"
 #include <vector>
