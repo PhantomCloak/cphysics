@@ -2,6 +2,8 @@
 #define WORLD_H
 
 #include "Circle.h"
+#include "CollisionDetection.h"
+#include "CollisionInfo.h"
 #include "Constants.h"
 #include "Particle.h"
 #include "Vector2.h"

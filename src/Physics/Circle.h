@@ -23,12 +23,14 @@ public:
   float invIntertia;
 
   float radius;
+  bool isCollide;
 
   Circle(float x, float y, float radius, float mass);
   ~Circle();
 
   void AddForce(const Vector2 &force);
   void AddTorque(const float torque);
+  void ApplyImpulse(const Vector2 &impulse);
 
   void Integrate(float dt);
   float GetIntertia() const;

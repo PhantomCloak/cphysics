@@ -9,7 +9,9 @@ Vector2::Vector2(float x, float y) {
 
 float Vector2::Magnitude() const { return sqrt(x * x + y * y); }
 
-Vector2 &Vector2::Normalize() {
+float Vector2::MaginitudeSquared() const { return (x * x + y * y); }
+
+Vector2 &Vector2::ToUnitVector() {
   float len = Magnitude();
   if (len != 0) {
     x /= len;
@@ -48,14 +50,14 @@ bool Vector2::operator!=(const Vector2 &v) const { return !(*this == v); }
 Vector2 Vector2::operator+(const Vector2 &v) const {
   Vector2 result;
   result.x = x + v.x;
-  result.x = y + v.y;
+  result.y = y + v.y;
   return result;
 }
 
 Vector2 Vector2::operator-(const Vector2 &v) const {
   Vector2 result;
   result.x = x - v.x;
-  result.x = y - v.y;
+  result.y = y - v.y;
   return result;
 }
 
@@ -69,7 +71,7 @@ Vector2 Vector2::operator*(const float n) const {
 Vector2 Vector2::operator/(const float n) const {
   Vector2 result;
   result.x = x / n;
-  result.x = y / n;
+  result.y = y / n;
   return result;
 }
 
@@ -101,5 +103,5 @@ Vector2 Vector2::operator-() {
   Vector2 result;
   result.x = x * -1;
   result.y = y * -1;
-  return *this;
+  return result;
 }

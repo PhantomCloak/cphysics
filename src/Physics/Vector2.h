@@ -13,7 +13,7 @@ struct Vector2 {
   float Magnitude() const;
   float MaginitudeSquared() const;
 
-  Vector2 &Normalize();
+  Vector2 &ToUnitVector();
   Vector2 UnitVector() const;
 
   float Dot(const Vector2 &v) const;

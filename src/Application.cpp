@@ -6,19 +6,19 @@ void Application::Setup() {
 }
 
 bool Application::IsRunning() { return appRunning; }
+
 void Application::Input() {
   SDL_Event event;
+  int x, y;
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
     case SDL_QUIT:
       appRunning = false;
       break;
     case SDL_MOUSEBUTTONDOWN:
-      int x, y;
       SDL_GetMouseState(&x, &y);
 
       if (event.button.button == SDL_BUTTON_LEFT) {
-
         int randomMass = rand() % 5;
         randomMass = randomMass == 0 ? 1 : randomMass;
 
@@ -51,8 +51,27 @@ void Application::Update() {
   if (deltaTime > 0.016)
     deltaTime = 0.016;
 
-  timePreviousFrame = SDL_GetTicks();
   world->Update(deltaTime);
+
+  for (auto circle : world->GetCircles()) {
+    if (circle->position.x - circle->radius <= 0) {
+      circle->position.x = circle->radius;
+      circle->velocity.x *= -0.7;
+    } else if (circle->position.x + circle->radius >= Graphics::Width()) {
+      circle->position.x = Graphics::Width() - circle->radius;
+      circle->velocity.x *= -0.7;
+    }
+
+    if (circle->position.y - circle->radius <= 0) {
+      circle->position.y = circle->radius;
+      circle->velocity.y *= -0.7;
+    } else if (circle->position.y + circle->radius >= Graphics::Height()) {
+      circle->position.y = Graphics::Height() - circle->radius;
+      circle->velocity.y *= -0.7;
+    }
+  }
+
+  timePreviousFrame = SDL_GetTicks();
 }
 
 void Application::Render() {
@@ -65,7 +84,8 @@ void Application::Render() {
 
   for (auto circle : world->GetCircles()) {
     Graphics::DrawCircle(circle->position.x, circle->position.y, circle->radius,
-                         circle->rotation, 0xff000000);
+                         circle->rotation,
+                         circle->isCollide == true ? 0xffff0000 : 0xff000000);
   }
 
   Graphics::RenderFrame();
